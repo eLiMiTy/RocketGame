@@ -11,4 +11,13 @@ $('canvas').drawLine({
   
 });
 
+$('canvas').drawImage({
+  source: '../RocketGame/Images/Rocket.png',
+  x: 450, y: 700,
+  width: 80,
+  height: 100,
+  fromCenter: false,
+});
+
+
 });
