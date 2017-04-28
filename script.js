@@ -4,13 +4,30 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var dx = 5;
 var dy = 5;
-var x = 150;
+var x = 150; 
 var y = 100;
-var WIDTH = 1000;
+var WIDTH = 1000; 
 var HEIGHT = 800;
 var pressUp, pressDown, pressRight, pressLeft;
+var bgImage=document.getElementById("bg");
+var gameOn = true;
+var bgPos=0;
 
 
+var rocket= {
+
+
+	x: 300,
+	y: 200,
+	fancyStuff: "jo"
+
+};
+
+function backgroundmove() {
+
+
+
+}
 
 function rect(x,y,w,h) {
 	ctx.beginPath();
@@ -29,24 +46,31 @@ function gameStep() {
 
 
 function move() {
-	if(pressUp) {
-  	 if (y - dy > 0){
-			y -= dy;
-    	}
-  	}	
-	if(pressDown) {
-  		if (y + dy < HEIGHT){
-			y += dy;
+	if(gameOn == true) {
+
+		bgPos++;
+		if (bgPos==HEIGHT) {
+			bgPos=0;
 		}
- 	}
-	if(pressLeft) {
- 		if (x - dx > 0){
-			x -= dx;
-		}
-  	}	
-	if(pressRight) {
-		if (x + dx < WIDTH){
-			x += dx;
+		if(pressUp) {
+	  	 if (y - dy > 0){
+				y -= dy;
+	    	}
+	  	}	
+		if(pressDown) {
+	  		if (y + dy < HEIGHT-90){
+				y += dy;
+			}
+	 	}
+		if(pressLeft) {
+	 		if (x - dx > -20){
+				x -= dx;
+			}
+	  	}	
+		if(pressRight) {
+			if (x + dx < WIDTH-80){
+				x += dx;
+			}
 		}
 	}	
  }
@@ -103,11 +127,14 @@ function doKeyUp(evt){
 function draw() {
 	clear();
 	var img = document.getElementById("img_rocket");
+	ctx.drawImage(bgImage, 0, bgPos);
+	ctx.drawImage(bgImage, 0, bgPos-HEIGHT);
 	ctx.drawImage(img, x, y, 100, 100);
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "black";
 	rect(0,0,WIDTH,HEIGHT);
 	ctx.fillStyle = "purple";
+	
 }
 
 
