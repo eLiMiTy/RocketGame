@@ -7,4 +7,9 @@ canvas {
 img {
 	display:none;
 }
+div.canvasdiv {
+	
+	background color: grey;
+	opacity: 0.7;
+}
 
