@@ -12,7 +12,8 @@ $(document).ready(function() {
 	var bgImage=document.getElementById("bg");
 	var gameOn = false;
 	var bgPos=0;
-
+	var pause= true;
+	var fire = false;
 
 
 
@@ -25,10 +26,7 @@ $(document).ready(function() {
 		fancyStuff: "jo"
 
 	};
-	function startGame() {
-
-
-	} 
+	
 
 	function rect(x,y,w,h) {
 		ctx.beginPath();
@@ -40,10 +38,13 @@ $(document).ready(function() {
 	gameStep();
 
 	function gameStep() {
-		startGame()
-		move();
-		draw();
-		window.setTimeout(gameStep, 10);
+		if(gameOn == true){
+			move();
+			draw();			
+		}
+			window.setTimeout(gameStep, 10);
+		
+		
 	}
 
 
@@ -103,6 +104,11 @@ $(document).ready(function() {
 			case 39:  /* Right arrow was pressed */
 			pressRight=true;
 			break;
+			case 27:	
+			break;
+			case 32:
+			fire = true
+			break;
 		}
 
 	}
@@ -122,6 +128,16 @@ $(document).ready(function() {
 			case 39:  /* Right arrow was pressed */
 			pressRight=false;
 			break;
+			case 27:
+			gameOn = false;
+			pause = true;	
+			break;
+			case 32:
+			pause = false;
+			gameOn = true;
+			fire = false;
+
+
 		}
 
 	}
@@ -139,16 +155,19 @@ $(document).ready(function() {
 		rect(0,0,WIDTH,HEIGHT);
 		ctx.fillStyle = "purple";
 
-		if (gameOn == false) {
-			$("body").keydown(function(event) {
-				if(event.keyCode == 32) {						
-					gameOn = true;
-					$(".canvasdiv").css("opacity", 1);
-				}
-
-			}); 
+		if(pause) {
+			$(".canvasdiv").css("opacity", 0.7);
+			ctx.font="120px Comic Sans MS";
+			ctx.fillStyle = "red";
+			ctx.textAlign = "center";
+			ctx.fillText("Menu", canvas.width/2, canvas.height/2);
+			ctx.fillStyle = "white"
+			ctx.font="60px Comic Sans MS";
+			ctx.fillText("press space to continue", canvas.width/2, canvas.height/2 + 100);
 		}
-
+		if(pause == false) {						
+			$(".canvasdiv").css("opacity", 1);
+		}	
 	}
 
 	init();
