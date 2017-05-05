@@ -13,6 +13,8 @@ $(document).ready(function() {
 	var gameOn = false;
 	var bgPos=0;
 
+	var aste = new Array();
+
 
 
 
@@ -38,6 +40,8 @@ $(document).ready(function() {
 	}
 
 	gameStep();
+	drawAsteroids();
+	moveAsteroids();
 
 	function gameStep() {
 		startGame()
@@ -138,7 +142,6 @@ $(document).ready(function() {
 		ctx.strokeStyle = "black";
 		rect(0,0,WIDTH,HEIGHT);
 		ctx.fillStyle = "purple";
-
 		if (gameOn == false) {
 			$("body").keydown(function(event) {
 				if(event.keyCode == 32) {						
@@ -149,10 +152,41 @@ $(document).ready(function() {
 			}); 
 		}
 
+
+		aste.forEach(function(aste) {
+			// // Zeichnet einen individuellen Komten
+            ctx.beginPath();
+            ctx.arc(aste.x, aste.y, 20, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fill();
+		});
+	}
+
+	function moveAsteroids() {
+		aste.forEach(function(aste) {
+			aste.y += 2;
+		})
+		setTimeout(moveAsteroids, 10);
 	}
 
 	init();
-
 	window.addEventListener('keydown',doKeyDown,true);
 	window.addEventListener('keyup',doKeyUp,true);
+
+	function drawAsteroids() {
+        // Zeichnet Kometen
+        for (i = 0; i <= 10; i++) {
+          // Zufallsposition für Kometen
+          var a = Math.floor(Math.random() * 995);
+          var b = Math.floor(Math.random() * 795);
+
+          b *= -1;
+         
+          aste.push({x:parseInt(a), y:parseInt(b)});
+
+        
+        }
+
+        setTimeout(drawAsteroids, 3000);
+      }
 });
