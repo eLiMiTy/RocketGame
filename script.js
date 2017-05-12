@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 
 	var aste = new Array();
-
+	var life = document.getElementById("life");
 
 
 
@@ -41,14 +41,17 @@ $(document).ready(function() {
 		ctx.stroke();
 	}
 
-	gameStep();
+	
 	drawAsteroids();
 	moveAsteroids();
 
 	function gameStep() {
 		if(gameOn == true){
 			move();
-			draw();			
+			draw();
+			
+			moveAsteroids();
+		
 		}
 			window.setTimeout(gameStep, 10);
 		
@@ -149,6 +152,9 @@ $(document).ready(function() {
 		}
 
 	}
+	switch(life){
+
+	}
 
 	
 
@@ -157,6 +163,7 @@ $(document).ready(function() {
 		var img = document.getElementById("img_rocket");
 		ctx.drawImage(bgImage, 0, bgPos);
 		ctx.drawImage(bgImage, 0, bgPos-HEIGHT);
+		ctx.drawImage(life, 10, 10,	10,	10);
 		ctx.drawImage(img, x, y, 100, 100);
 		ctx.fillStyle = "white";
 		ctx.strokeStyle = "black";
