@@ -141,7 +141,7 @@ $(document).ready(function() {
 		ctx.fillStyle = "white";
 		ctx.strokeStyle = "black";
 		rect(0,0,WIDTH,HEIGHT);
-		ctx.fillStyle = "purple";
+		ctx.fillStyle = "red";
 		if (gameOn == false) {
 			$("body").keydown(function(event) {
 				if(event.keyCode == 32) {						
