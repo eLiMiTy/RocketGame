@@ -53,7 +53,10 @@ $(document).ready(function() {
 			move();
 			draw();
 
-			moveAsteroids();			
+			moveAsteroids();
+			collideTest();
+			bang();
+
 
 			
 			
@@ -231,6 +234,9 @@ function drawAsteroids() {
           // Zufallsposition für Kometen
           var a = Math.floor(Math.random() * 995);
           var b = Math.floor(Math.random() * 795);
+           
+          ctx.fillStyle = "#FF0000";
+
 
           b *= -1;
 
@@ -241,4 +247,43 @@ function drawAsteroids() {
 
       setTimeout(drawAsteroids, 3000);
   }
+
+
+  function collideTest() {
+
+        // Collision detection. Get a clip from the screen.
+        // See what the ship would move over.
+        var clipWidth = 80;
+        var clipDepth = 100;
+        var clipLength = clipWidth * clipDepth;
+        var clipOffset = 5;
+        var whatColor = ctx.getElementById "img_rocket"(shipX + clipOffset, shipY + clipOffset, clipWidth, clipDepth);
+
+        // Loop through the clip and see if you find red or blue. 
+        for (var i = 0; i < clipLength * 4; i += 4) {
+          if (whatColor.data[i] == 255) {
+            direction = "P";
+            break;
+          }
+          // Second element is green but we don't care. 
+          if (whatColor.data[i + 2] == 255) {
+            direction = "B";
+            break;
+          }
+          // Fourth element is alpha and we don't care. 
+        }
+
+        // Did we hit something?
+        if (direction == "P") bang();
+        if (direction == "B") youWin();
+      }
+
+      function bang() {
+
+        // You lose.
+        alert("Game over! You hit an asteroid.");
+        // Stop game.
+        clearTimeout(gameLoop);
+        window.removeEventListener('keydown', whatKey, true);
+      }
 });
